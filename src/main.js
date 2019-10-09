@@ -15,7 +15,6 @@ for (i = 0; i < size; i++) {
     key = key + auth[i];
 }
 
-console.log(key);
 
 /* ----- END GET THE KEY ----- */
 
@@ -63,7 +62,7 @@ function clean_logs() {
     console.log("Logs cleaned");
 }
 
-setup_logs();
+// setup_logs();
 
 /* ----- END LOG CODE ----- */
 
@@ -87,7 +86,7 @@ client.on('ready', () => {
 client.login(key);
 
 client.on('message', message => {
-    log(message);
+    // log(message);
 
     // var msg = message.content.toLowerCase();
     var msg = message.content;
@@ -96,7 +95,7 @@ client.on('message', message => {
         var command_no_prefix = msg.substring(prefix.length, msg.length);
 
         var stripped_command = command_no_prefix.replace(/\s+/g, " ").replace(/^\s|\s$/g, "");
-        handle(stripped_command);
+        handle(message, stripped_command);
     }
 });
 
@@ -104,16 +103,27 @@ client.on('message', message => {
 
 /* ----- BEGIN COMMAND API ----- */
 
-function handle(command) {
+function handle(message, command) {
     var args = command.split(" ");
     
     switch (args[0]) {
     case "animate":
-        animate(args[1]);
+        if (args.length == 2)
+            animate(message, args[1]);
+        else
+            message.channel.send("Invalid number of arguments to call animate.");
     }
 }
 
-function animate(name) {
+function animate(message, name) {
+    var member_id = message.member.user.id;
+    for (var i = 0; i < name.length; i++) {
+        message.guild.members.get(member_id).setNickname(name).then((error) => {
+            console.log(error);
+        }).then((error) => {
+            console.log(error);
+        });
+    }
     
 }
 
