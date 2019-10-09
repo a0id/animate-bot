@@ -1,0 +1,13 @@
+{
+    "name": "animate-bot",
+    "version": "1.0.0",
+    "description": "Animate Bot",
+    "main": "src/main.js",
+    "author": "xoreo",
+    "scripts": {
+        "start": "node src/main.js"
+    },
+    "dependencies": {
+        "discord.js": "^11.5.1"
+    }
+}
